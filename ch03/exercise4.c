@@ -9,7 +9,10 @@ the following format (the actual number of digits displayed for the exponent dep
 Enter a floating-point value: 64.25
 fixed-point notation: 64.250000
 exponential notation: 6.425000e+01
-p notation: 0x1.01p+6 */
+p notation: 0x1.01p+6 
+
+Note: the p-notation is since C11.
+*/
 
 #include <stdio.h>
 int main(void) 

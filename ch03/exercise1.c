@@ -6,7 +6,7 @@ write programs that have these problems.
 
 */
 #include <stdio.h>
-#include <limits.h>
+#include <limits.h>	// INT_MAX, FLT_MAX, etc.
 #include <float.h>
 
 int main(void)
