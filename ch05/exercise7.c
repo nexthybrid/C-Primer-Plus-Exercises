@@ -8,20 +8,38 @@
 
 #include <stdio.h>
 
-double cubed(double n); // prototype declaration for cubed
-
-int main(void)
+float cube(float a)
 {
-	double input;
-	printf("Enter a number to cube: ");
-	scanf("%lf", &input);
+	return a * a * a;
+}
 
-	printf("%.3f cubed is %.3f\n", input, cubed(input));
+int main()
+{
+	printf("Please provide a float value:\n");
+	float a;
+	scanf("%f", &a);
+	printf("The cube of the number is: %f", cube(a));
 
 	return 0;
 }
 
-double cubed(double n)
-{
-	return n * n * n;
-}
+
+// #include <stdio.h>
+
+// double cubed(double n); // prototype declaration for cubed
+
+// int main(void)
+// {
+// 	double input;
+// 	printf("Enter a number to cube: ");
+// 	scanf("%lf", &input);
+
+// 	printf("%.3f cubed is %.3f\n", input, cubed(input));
+
+// 	return 0;
+// }
+
+// double cubed(double n)
+// {
+// 	return n * n * n;
+// }

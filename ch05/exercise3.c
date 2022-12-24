@@ -12,23 +12,42 @@ Use a while loop to allow the user to repeatedly enter day values; terminate the
 loop when the user enters a nonpositive value, such as 0 or -20. */
 
 #include <stdio.h>
+#define DAYS_IN_A_WEEK 7
 
-const int DAYS_PER_WEEK = 7;
-
-int main(void)
+int main()
 {
-	int days;
-
-	printf("Enter a number of days (or enter 0 to quit): ");
-	scanf("%d", &days);
-	while (days > 0)
-	{
-		printf("%d days are %d weeks, %d days.\n", days, days / DAYS_PER_WEEK,
-		       days % DAYS_PER_WEEK);
-
-		printf("Enter a number of days (or enter 0 to quit): ");
-		scanf("%d", &days);
+	printf("Please provide a number of days:\n");
+	unsigned int days;
+	scanf("%u", &days);
+	while (days > 0){
+		unsigned int weeks = days / DAYS_IN_A_WEEK;
+		printf("%u days are %u weeks, %u days.\n\n", days, weeks, days % DAYS_IN_A_WEEK);
+		printf("Please provide a number of days:\n");
+		scanf("%u", &days);
 	}
 
 	return 0;
 }
+
+
+// #include <stdio.h>
+
+// const int DAYS_PER_WEEK = 7;
+
+// int main(void)
+// {
+// 	int days;
+
+// 	printf("Enter a number of days (or enter 0 to quit): ");
+// 	scanf("%d", &days);
+// 	while (days > 0)
+// 	{
+// 		printf("%d days are %d weeks, %d days.\n", days, days / DAYS_PER_WEEK,
+// 		       days % DAYS_PER_WEEK);
+
+// 		printf("Enter a number of days (or enter 0 to quit): ");
+// 		scanf("%d", &days);
+// 	}
+
+// 	return 0;
+// }

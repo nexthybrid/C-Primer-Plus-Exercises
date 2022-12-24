@@ -11,20 +11,36 @@ a variable that is read in. */
 
 #include <stdio.h>
 
-int main(void)
+int main()
 {
-	int count, sum, max_count;
+	int count, sum;
+	count = 0;
 	sum = 0;
-	count = 1;
-
-	printf("How many integers would you like to sum? ");
-	scanf("%d", &max_count);
-	while (count <= max_count)
-	{
+	printf("Please provide the total number of integers to add up:\n");
+	int nTotal;
+	scanf("%u", &nTotal);
+	while (count++ < nTotal)
 		sum = sum + count;
-		count++;
-	}
 	printf("sum = %d\n", sum);
-
 	return 0;
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	int count, sum, max_count;
+// 	sum = 0;
+// 	count = 1;
+
+// 	printf("How many integers would you like to sum? ");
+// 	scanf("%d", &max_count);
+// 	while (count <= max_count)
+// 	{
+// 		sum = sum + count;
+// 		count++;
+// 	}
+// 	printf("sum = %d\n", sum);
+
+// 	return 0;
+// }
