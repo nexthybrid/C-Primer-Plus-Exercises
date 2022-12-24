@@ -17,32 +17,60 @@
 
 #include <stdio.h>
 
-int sum_of_squares(int lower, int upper);
-
-int main(void)
-{
-	int upper, lower, reads;
-
-	printf("Enter lower and upper integer limits: ");
-	while(reads = scanf("%d%d", &lower, &upper), reads == 2 && lower < upper)
-	{
-		printf("The sums of the squares from %d to %d is %d\n",
-			   lower * lower, upper * upper, sum_of_squares(lower, upper));
-		printf("Enter next set of limits: ");
-	}
-	printf("Done\n");
-
-	return 0;
-}
-
-int sum_of_squares(int lower, int upper) // calculate sum of squares from lower to upper
+int sumOfSquares(int a, int b)
 {
 	int sum = 0;
-
-	for (int i = lower; i <= upper; i++)
-	{
+	for (int i = a; i <= b; i++){
 		sum += i * i;
 	}
-
 	return sum;
 }
+
+int main()
+{
+	printf("Provide lower and upper integer limits:\n");
+	int a;
+	int b;
+	scanf("%i %i", &a, &b);
+	while (a <= b){
+		printf("The sum of the squares from %i to %i is %i.\n\n",
+			a * a, b * b, sumOfSquares(a,b));
+		printf("Provide lower and upper integer limits:\n");
+		scanf("%i %i", &a, &b);
+	}
+	printf("Done\n");
+	return 0;
+	
+}
+
+// #include <stdio.h>
+
+// int sum_of_squares(int lower, int upper);
+
+// int main(void)
+// {
+// 	int upper, lower, reads;
+
+// 	printf("Enter lower and upper integer limits: ");
+// 	while(reads = scanf("%d%d", &lower, &upper), reads == 2 && lower < upper)
+// 	{
+// 		printf("The sums of the squares from %d to %d is %d\n",
+// 			   lower * lower, upper * upper, sum_of_squares(lower, upper));
+// 		printf("Enter next set of limits: ");
+// 	}
+// 	printf("Done\n");
+
+// 	return 0;
+// }
+
+// int sum_of_squares(int lower, int upper) // calculate sum of squares from lower to upper
+// {
+// 	int sum = 0;
+
+// 	for (int i = lower; i <= upper; i++)
+// 	{
+// 		sum += i * i;
+// 	}
+
+// 	return sum;
+// }

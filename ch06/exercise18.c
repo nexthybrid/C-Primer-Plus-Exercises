@@ -13,22 +13,42 @@
 // member and how they relate to one another. Its approximate value is 150.
 
 #include <stdio.h>
+#define MULTIP_RATE 2
+#define DUNBAR_N 150
 
-int main(void)
+int main()
 {
-	const int DUNBARS_NUMBER = 150;
-
-	int friends = 5, week = 0;
-
-	printf("Week | Friends\n");
-	printf("-----+--------\n");
-	while (friends < DUNBARS_NUMBER)
-	{
-		printf("%4d | %7d\n", week, friends);
-		week++;
+	int friends = 5;
+	int week = 0;
+	while (friends <= DUNBAR_N){
+		++week;
 		friends -= week;
-		friends *= 2;
+		friends *= MULTIP_RATE;
 	}
-
+	printf("At the end of week %i, the number of friends exceeds the Dunbar's number at %i",
+		week, friends);
 	return 0;
+
 }
+
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	const int DUNBARS_NUMBER = 150;
+
+// 	int friends = 5, week = 0;
+
+// 	printf("Week | Friends\n");
+// 	printf("-----+--------\n");
+// 	while (friends < DUNBARS_NUMBER)
+// 	{
+// 		printf("%4d | %7d\n", week, friends);
+// 		week++;
+// 		friends -= week;
+// 		friends *= 2;
+// 	}
+
+// 	return 0;
+// }

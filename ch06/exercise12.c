@@ -13,26 +13,63 @@
 
 #include <stdio.h>
 
-int main(void)
+float series_one(int n)
 {
-	long int limit;
-	float sign = 1.0f;
-	float series1 = 0, series2 = 0;
+	float sum = 0;
+	for (int i = 1; i <= n; i ++)
+		sum += 1.0 / (float)i;
+	return sum;
+}
 
-	printf("Enter a number of terms to sum: ");
-	scanf("%ld", &limit);
-
-	for (long int i = 1; i <= limit; i++)
-	{
-		series1 += 1.0f/i;
-		series2 += (1.0f/i) * sign;
-		sign = -sign; // toggle sign
+float series_two(int n)
+{
+	float sum = 0;
+	int sign = 1;
+	for (int i = 1; i <= n; i ++){
+		sum += (float)sign * 1.0 / (float)i;
+		sign *= -1;	// flip sign
 	}
 
-	printf("The %ldth partial sum for series 1 is: %.5f\n", limit, series1);
-	printf("The %ldth partial sum for series 2 is: %.5f\n", limit, series2);
-
-	// Answer: Series 1 has no limit. Series 2 appears to be bounded above
-
-	return 0;
+	return sum;
 }
+
+int main()
+{
+	printf("Enter a limit for the integer (>1):\n");
+	int nLim;
+	scanf("%i", &nLim);
+	while (nLim < 1){
+		printf("Please provide an integer greater than 1.\n");
+		scanf("%i", &nLim);
+	}
+	printf("Series one adds up to: %f.\n", series_one(nLim));
+	printf("Series two adds up to: %f.\n", series_two(nLim));
+	return 0;
+
+}
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	long int limit;
+// 	float sign = 1.0f;
+// 	float series1 = 0, series2 = 0;
+
+// 	printf("Enter a number of terms to sum: ");
+// 	scanf("%ld", &limit);
+
+// 	for (long int i = 1; i <= limit; i++)
+// 	{
+// 		series1 += 1.0f/i;
+// 		series2 += (1.0f/i) * sign;
+// 		sign = -sign; // toggle sign
+// 	}
+
+// 	printf("The %ldth partial sum for series 1 is: %.5f\n", limit, series1);
+// 	printf("The %ldth partial sum for series 2 is: %.5f\n", limit, series2);
+
+// 	// Answer: Series 1 has no limit. Series 2 appears to be bounded above
+
+// 	return 0;
+// }

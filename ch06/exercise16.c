@@ -9,30 +9,50 @@
 // exceed the value of Daphne’s investment. Also show the two values at that time.
 
 #include <stdio.h>
+#define SIMPLE_RATE 0.10
+#define COMPOUND_RATE 0.05
 
-int main(void)
+int main()
 {
-	const float DEIRDE_PRINCIPLE = 100.0f;
-	const float DAPHNE_PRINCIPLE = 100.0f;
-	const float DEIRDE_INTEREST = 0.05f;
-	const float DAPHNE_INTEREST = 0.10f;
-
-	// initialize years and balances
-	int years = 0; 
-	float daphne_balance = DAPHNE_PRINCIPLE;
-	float deirdre_balance = DEIRDE_PRINCIPLE;
-
-	while (deirdre_balance <= daphne_balance)
-	{
-		// eq. for compound interest
-		deirdre_balance *= 1.0f + DEIRDE_INTEREST;
-		// eq. for simple interest
-		daphne_balance += DAPHNE_PRINCIPLE * DAPHNE_INTEREST; 
-		years++;
+	// increment years gradually until the second option surpasses the first
+	int years = 0;
+	float netWorth_Da = 100;
+	float netWorth_Df = 100;
+	while (++years < 100 && netWorth_Da >= netWorth_Df){
+		netWorth_Da += 100 * SIMPLE_RATE;
+		netWorth_Df *= (1 + COMPOUND_RATE);
 	}
-	printf("After %d years, Daphne's investment is worth $%.2f and "
-		   "Deirdre’s investment is worth $%.2f.\n", years,
-		   daphne_balance, deirdre_balance);
-
+	printf("At the end of year %i, the compound rate investment surpasses the simple rate.\n", years);
+	printf("Net worth of simple investment at the end of year %i: %.2f\n", years, netWorth_Da);
+	printf("Net worth of compound investment at the end of year %i: %.2f\n", years, netWorth_Df);
 	return 0;
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	const float DEIRDE_PRINCIPLE = 100.0f;
+// 	const float DAPHNE_PRINCIPLE = 100.0f;
+// 	const float DEIRDE_INTEREST = 0.05f;
+// 	const float DAPHNE_INTEREST = 0.10f;
+
+// 	// initialize years and balances
+// 	int years = 0; 
+// 	float daphne_balance = DAPHNE_PRINCIPLE;
+// 	float deirdre_balance = DEIRDE_PRINCIPLE;
+
+// 	while (deirdre_balance <= daphne_balance)
+// 	{
+// 		// eq. for compound interest
+// 		deirdre_balance *= 1.0f + DEIRDE_INTEREST;
+// 		// eq. for simple interest
+// 		daphne_balance += DAPHNE_PRINCIPLE * DAPHNE_INTEREST; 
+// 		years++;
+// 	}
+// 	printf("After %d years, Daphne's investment is worth $%.2f and "
+// 		   "Deirdre’s investment is worth $%.2f.\n", years,
+// 		   daphne_balance, deirdre_balance);
+
+// 	return 0;
+// }

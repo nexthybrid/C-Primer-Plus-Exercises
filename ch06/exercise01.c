@@ -6,27 +6,41 @@
 // letters in it. Also have it show the array contents.
 
 #include <stdio.h>
-#define ALPHABET_LENGTH 26
 
-int main(void)
+int main()
 {
-	char alphabet_lowercase[ALPHABET_LENGTH];
-	char letter;
-	int i;
-
-	// initialize array
-	for (letter = 'a'; letter - 'a' < ALPHABET_LENGTH; letter++)
-	{
-		alphabet_lowercase[letter - 'a'] = letter; // store letter in array
+	char chArr[26];
+	char ch = 'a';
+	for (int i = 0; ch < 'z'; ch++, i++){
+		chArr[i] = ch;
+		printf("%c",chArr[i]);
 	}
-
-	printf("The lowercase letters of the alphabet are:\n");
-	// print each item in array
-	for (i = 0; i < ALPHABET_LENGTH; i++)
-	{
-		printf("%c ", alphabet_lowercase[i]);
-	}
-	printf("\n");
 
 	return 0;
 }
+
+// #include <stdio.h>
+// #define ALPHABET_LENGTH 26
+
+// int main(void)
+// {
+// 	char alphabet_lowercase[ALPHABET_LENGTH];
+// 	char letter;
+// 	int i;
+
+// 	// initialize array
+// 	for (letter = 'a'; letter - 'a' < ALPHABET_LENGTH; letter++)
+// 	{
+// 		alphabet_lowercase[letter - 'a'] = letter; // store letter in array
+// 	}
+
+// 	printf("The lowercase letters of the alphabet are:\n");
+// 	// print each item in array
+// 	for (i = 0; i < ALPHABET_LENGTH; i++)
+// 	{
+// 		printf("%c ", alphabet_lowercase[i]);
+// 	}
+// 	printf("\n");
+
+// 	return 0;
+// }

@@ -8,19 +8,52 @@
 // character (\n) is generated when you press the Enter key.
 
 #include <stdio.h>
+#include <string.h> // strlen
+#define STR_LEN_MAX 255
 
-int main(void)
+/* TIP: best practice for reading in a line from user:
+	Try to avoid using scanf for buffer overflow
+	If you have to use scanf, use the conversion specifier [^\n]
+	to match all contents before a '\n' is detected.
+*/
+
+void reversePrintStr(char str[STR_LEN_MAX])
 {
-	char line[255];
-	int i = 0; // array index
-	printf("Enter a line to reverse:\n");
-	while (scanf("%c", &line[i]), line[i] != '\n')
-		i++;
-
-	for (; 0 <= i; i--) // previous loop leaves i in right position
-		printf("%c", line[i]);
-
+	int len = strlen(str);
+	for (int i = len; i >= 0; i--)
+		printf("%c",str[i]);
 	printf("\n");
+}
+
+int main()
+{
+	printf("Please provide a sentence:\n");
+	char str[STR_LEN_MAX];
+	// scanf("%[^\n]%*c", str); // or scanf("%[^\n]s", str);
+	scanf("%[^\n]s", str);
+	printf("The input sentence is:\n");
+	printf("%s\n", str);
+	printf("The reverse sentence is:\n");
+	reversePrintStr(str);
 
 	return 0;
+
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	char line[255];
+// 	int i = 0; // array index
+// 	printf("Enter a line to reverse:\n");
+// 	while (scanf("%c", &line[i]), line[i] != '\n')
+// 		i++;
+
+// 	for (; 0 <= i; i--) // previous loop leaves i in right position
+// 		printf("%c", line[i]);
+
+// 	printf("\n");
+
+// 	return 0;
+// }
