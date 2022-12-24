@@ -6,37 +6,67 @@
 
 #include <stdio.h>
 #include <stdbool.h>
-#include <ctype.h>
-
 #define STOP '#'
 
-int main(void)
+int main()
 {
+	printf("Enter whatever and end with #:\n");
+	bool prevWasE = false;
 	char ch;
-	unsigned int ei_count = 0;
-	bool e_flag = false;
-
-	printf("This program reads input and counts the number of times the\n"
-		   "sequence 'ei' occurs (case insensitive).\n");
-	printf("Enter input (%c to stop):\n", STOP);
-
-	while ((ch = getchar()) != STOP)
-	{
-		ch = tolower(ch);
-		if (ch == 'e')
-			e_flag = true;
-		else if (ch == 'i')
-		{
-			if (e_flag)
-				ei_count++;
-			e_flag = false;
-		}
-		else
-			e_flag = false;
-
+	int count = 0;
+	while ((ch = getchar()) != STOP){
+		if (prevWasE){
+			if (ch == 'i'){
+				count += 1;
+				prevWasE = false;
+			} else if (ch == 'e'){
+				prevWasE = true;
+			} else {
+				prevWasE = false;
+			}
+		} else if (ch == 'e'){
+			prevWasE = true;
+		} else {
+			prevWasE = false;
+		}	
 	}
-
-	printf("The sequence 'ei' occurs %u times.\n", ei_count);
-
+	printf("Statistics:\nThe number of occurances of ei: %d\n", count);
 	return 0;
 }
+
+// #include <stdio.h>
+// #include <stdbool.h>
+// #include <ctype.h>
+
+// #define STOP '#'
+
+// int main(void)
+// {
+// 	char ch;
+// 	unsigned int ei_count = 0;
+// 	bool e_flag = false;
+
+// 	printf("This program reads input and counts the number of times the\n"
+// 		   "sequence 'ei' occurs (case insensitive).\n");
+// 	printf("Enter input (%c to stop):\n", STOP);
+
+// 	while ((ch = getchar()) != STOP)
+// 	{
+// 		ch = tolower(ch);
+// 		if (ch == 'e')
+// 			e_flag = true;
+// 		else if (ch == 'i')
+// 		{
+// 			if (e_flag)
+// 				ei_count++;
+// 			e_flag = false;
+// 		}
+// 		else
+// 			e_flag = false;
+
+// 	}
+
+// 	printf("The sequence 'ei' occurs %u times.\n", ei_count);
+
+// 	return 0;
+// }
