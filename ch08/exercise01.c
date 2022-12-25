@@ -6,15 +6,31 @@
 
 #include <stdio.h>
 
-int main(void)
-{
-	int count = 0;
+/* Ctrl + Z is the keyboard input for ending file.
+*/
 
-	while (getchar() != EOF)
-	{
+int main()
+{
+	char ch;
+	int count = 0;
+	while ((ch = getchar()) != EOF){
 		count++;
 	}
-	printf("Character count: %d\n", count);
-
+	printf("Total characters: %d\n", count);
 	return 0;
 }
+
+// #include <stdio.h>
+
+// int main(void)
+// {
+// 	int count = 0;
+
+// 	while (getchar() != EOF)
+// 	{
+// 		count++;
+// 	}
+// 	printf("Character count: %d\n", count);
+
+// 	return 0;
+// }

@@ -64,7 +64,7 @@ void printPay(float hrRate)
 int main()
 {
 	int selection;
-	int rates[4] = {RATE_1, RATE_2, RATE_3, RATE_4};
+	float rates[4] = {RATE_1, RATE_2, RATE_3, RATE_4};
 	do {
 		// print instructions
 		printf("*****************************************************************\n");

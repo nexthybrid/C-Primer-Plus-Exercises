@@ -1,0 +1,2 @@
+Enter text (terminated by # or EOF):
+Total characters: 42

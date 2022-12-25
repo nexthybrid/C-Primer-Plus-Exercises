@@ -12,86 +12,160 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int get_first(void);
-void print_menu(void);
-float get_number(void);
-
-int main(void)
+char get_first_char()
 {
-	int operation;
-	float num1, num2;
-
-	print_menu();
-	while ((operation = get_first()) != 'q')
-	{
-		printf("Enter first number: ");
-		num1 = get_number();
-		printf("Enter second number: ");
-		num2 = get_number();
-
-		switch (operation)
-		{
-			case ('a') :
-				printf("%.3f + %.3f = %.3f\n", num1, num2, num1 + num2);
-				break;
-			case ('s') :
-				printf("%.3f - %.3f = %.3f\n", num1, num2, num1 - num2);
-				break;
-			case ('m') :
-				printf("%.3f * %.3f = %.3f\n", num1, num2, num1 * num2);
-				break;
-			case ('d') :
-				while (num2 == 0)
-				{
-					printf("Enter a number other than 0: ");
-					num2 = get_number();
-				}
-				printf("%.3f / %.3f = %.3f\n", num1, num2, num1 / num2);
-				break;
-			default :
-				printf("I do not recognize that input. Try again.");
-		}
-		print_menu();
-	}
-
-
-}
-
-int get_first(void)
-{
-	// return first non-whitespace character
-	int ch;
-
-	do ch = getchar(); while (isspace(ch));
-
-	while (getchar() != '\n')
-		;
-
+	char ch;
+	while (isspace(ch = getchar()))
+		continue;
+	while (getchar() != '\n')	// buffer clean up
+		continue;
 	return ch;
 }
 
-
-void print_menu(void)
+void cleanBuffer()
 {
-	printf("Enter the operation of your choice:\n");
-	printf("a. add            s. subtract\n");
-	printf("m. multiply       d. divide\n");
-	printf("q. quit\n");
+	while (getchar() != '\n')
+		continue;
 }
 
-float get_number(void)
+int main()
 {
-	int ch;
-	float num;
-
-	while (scanf("%f", &num) != 1)
-	{
-		while ((ch = getchar()) != '\n') // echo user input and clear stream
-			putchar(ch);
-
-		printf(" is not a number.\n");
-		printf("Please enter a number, such as 2.5, -1.78E8, or 3: ");
+	// main menu while loop
+	char selection;
+	float a;
+	float b;
+	int nSuccess;	// for scanf return
+	do {
+		printf("*****************************************************************\n");
+		printf("Enter the number corresponding to the desired pay rate or action:\n");
+		printf("a) addition 				b) subtraction\n");
+		printf("c) multiplication 			d) division\n");
+		printf("q) quit \n");
+		printf("*****************************************************************\n");
+		selection = get_first_char();
+		if (selection == 'q')
+			break;
+		if (selection >= 'a' && selection <= 'd'){
+			printf("Provide two float numbers:\n");
+			while (scanf("%f %f", &a, &b) != 2){
+				printf("Invalid input! Provide two float numbers:\n");
+				cleanBuffer();
+			}
+		}
+		switch (selection){
+			case 'a':
+				printf("Addition: %f + %f = %f\n", a, b, a + b);
+				break;
+			case 'b':
+				printf("Subtraction: %f - %f = %f\n", a, b, a - b);
+				break;
+			case 'c':
+				printf("Multiplication: %f * %f = %f\n", a, b, a * b);
+				break;
+			case 'd':
+				while (b == 0.0){
+					printf("The second number cannot be zero!\n");
+					printf("Provide two float numbers:\n");
+					while (scanf("%f %f", &a, &b) != 2){
+						printf("Invalid input! Provide two float numbers:\n");
+						cleanBuffer();
+					}
+				}
+				printf("Division: %f / %f = %f\n", a, b, a / b);
+				break;
+			case 'q':
+				printf("Exiting on q).\n");
+				break;
+			default:
+				printf("Selection invalid. Please use a, b, c, d, or q.\n");
+		}
 	}
-
-	return num;
+	while (selection != 'q');
 }
+
+// #include <stdio.h>
+// #include <ctype.h>
+
+// int get_first(void);
+// void print_menu(void);
+// float get_number(void);
+
+// int main(void)
+// {
+// 	int operation;
+// 	float num1, num2;
+
+// 	print_menu();
+// 	while ((operation = get_first()) != 'q')
+// 	{
+// 		printf("Enter first number: ");
+// 		num1 = get_number();
+// 		printf("Enter second number: ");
+// 		num2 = get_number();
+
+// 		switch (operation)
+// 		{
+// 			case ('a') :
+// 				printf("%.3f + %.3f = %.3f\n", num1, num2, num1 + num2);
+// 				break;
+// 			case ('s') :
+// 				printf("%.3f - %.3f = %.3f\n", num1, num2, num1 - num2);
+// 				break;
+// 			case ('m') :
+// 				printf("%.3f * %.3f = %.3f\n", num1, num2, num1 * num2);
+// 				break;
+// 			case ('d') :
+// 				while (num2 == 0)
+// 				{
+// 					printf("Enter a number other than 0: ");
+// 					num2 = get_number();
+// 				}
+// 				printf("%.3f / %.3f = %.3f\n", num1, num2, num1 / num2);
+// 				break;
+// 			default :
+// 				printf("I do not recognize that input. Try again.");
+// 		}
+// 		print_menu();
+// 	}
+
+
+// }
+
+// int get_first(void)
+// {
+// 	// return first non-whitespace character
+// 	int ch;
+
+// 	do ch = getchar(); while (isspace(ch));
+
+// 	while (getchar() != '\n')
+// 		;
+
+// 	return ch;
+// }
+
+
+// void print_menu(void)
+// {
+// 	printf("Enter the operation of your choice:\n");
+// 	printf("a. add            s. subtract\n");
+// 	printf("m. multiply       d. divide\n");
+// 	printf("q. quit\n");
+// }
+
+// float get_number(void)
+// {
+// 	int ch;
+// 	float num;
+
+// 	while (scanf("%f", &num) != 1)
+// 	{
+// 		while ((ch = getchar()) != '\n') // echo user input and clear stream
+// 			putchar(ch);
+
+// 		printf(" is not a number.\n");
+// 		printf("Please enter a number, such as 2.5, -1.78E8, or 3: ");
+// 	}
+
+// 	return num;
+// }

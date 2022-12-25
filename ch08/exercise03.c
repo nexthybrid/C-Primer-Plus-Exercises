@@ -9,27 +9,50 @@
 // appropriate classification functions from the ctype.h library.
 
 #include <stdio.h>
-#include <ctype.h>
+#include <ctype.h>	// islower, isupper
 
-int main(void)
+int main()
 {
-	int ch;
-	int uppercase_count = 0, lowercase_count = 0, other_count = 0;
-
-	while ((ch = getchar()) != EOF)
-	{
-		if (isupper(ch))
-			uppercase_count++;
-		else if (islower(ch))
-			lowercase_count++;
+	char ch;
+	int nLower = 0;
+	int nUpper = 0;
+	int nOther = 0;
+	printf("Enter text:\n");
+	while ((ch = getchar()) != EOF){
+		if (islower(ch))
+			nLower++;
+		else if (isupper(ch))
+			nUpper++;
 		else
-			other_count++;
+			nOther++;
 	}
-
-	printf("Character Counts\n");
-	printf("Uppercase letters: %d\n", uppercase_count);
-	printf("Lowercase letters: %d\n", lowercase_count);
-	printf("Other: %d\n", other_count);
-
+	printf("Statistics:\nLower case: %d\nUpper case: %d\nOther: %d",
+		nLower, nUpper, nOther);
 	return 0;
 }
+
+// #include <stdio.h>
+// #include <ctype.h>
+
+// int main(void)
+// {
+// 	int ch;
+// 	int uppercase_count = 0, lowercase_count = 0, other_count = 0;
+
+// 	while ((ch = getchar()) != EOF)
+// 	{
+// 		if (isupper(ch))
+// 			uppercase_count++;
+// 		else if (islower(ch))
+// 			lowercase_count++;
+// 		else
+// 			other_count++;
+// 	}
+
+// 	printf("Character Counts\n");
+// 	printf("Uppercase letters: %d\n", uppercase_count);
+// 	printf("Lowercase letters: %d\n", lowercase_count);
+// 	printf("Other: %d\n", other_count);
+
+// 	return 0;
+// }
