@@ -6,28 +6,56 @@
 // function that takes two double arguments and returns the harmonic mean of
 // the two numbers.
 
-
 #include <stdio.h>
 
-double harmonic_mean(double, double);
-
-int main(void)
+double harmonic_mean(double a, double b)
 {
-	double x, y;
+	return 1 / (0.5 * (1 / a + 1 / b));
+}
 
-	printf("Harmonic means\n");
-	printf("Enter two numbers: ");
-	while (scanf("%lf %lf", &x, &y) == 2)
-	{
-		printf("%f\n", harmonic_mean(x, y));
-
-		printf("Enter two numbers: ");
+int main()
+{
+	double a, b, c;
+	int nAssigned;
+	printf("Enter two numbers:\n");
+	while ((nAssigned = scanf("%lf %lf", &a, &b)) == 2){
+		while (getchar() != '\n')	// clean buffer
+			continue;
+		while ((a == 0 || b == 0) || nAssigned != 2){
+			printf("The input cannot be zero. Enter two numbers:\n");
+			nAssigned = scanf("%lf %lf", &a, &b);
+			while (getchar() != '\n')	// clean buffer
+				continue;
+		}
+		c = harmonic_mean(a, b);
+		printf("The harmonic mean of %.3lf and %.3lf is %.3lf\n",
+			a, b, c);
+		printf("\nEnter two numbers:\n");
 	}
-
 	return 0;
 }
 
-double harmonic_mean(double x, double y)
-{
-	return 2 / (1 / x + 1 / y);
-}
+// #include <stdio.h>
+
+// double harmonic_mean(double, double);
+
+// int main(void)
+// {
+// 	double x, y;
+
+// 	printf("Harmonic means\n");
+// 	printf("Enter two numbers: ");
+// 	while (scanf("%lf %lf", &x, &y) == 2)
+// 	{
+// 		printf("%f\n", harmonic_mean(x, y));
+
+// 		printf("Enter two numbers: ");
+// 	}
+
+// 	return 0;
+// }
+
+// double harmonic_mean(double x, double y)
+// {
+// 	return 2 / (1 / x + 1 / y);
+// }

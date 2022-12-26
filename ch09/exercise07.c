@@ -11,31 +11,64 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int letter_location(char ch);
+int locateChar(char ch);
 
-int main(void)
+int main()
 {
 	char ch;
-	int location;
-
-	while ((ch = getchar()) != EOF)
-	{
-		if ((location = letter_location(ch)) == -1)
-			printf("%c is not a letter\n", ch);
-		else
-			printf("%c is a letter: location = %d\n", ch, location);
-	} 
-
+	int alphIdx;
+	while ((ch = getchar()) != EOF){
+		if (isalpha(ch)){
+			alphIdx = locateChar(ch);
+			printf("%c(%d)", ch, alphIdx);
+		} else {
+			printf("%c", ch);
+		}
+	}
 	return 0;
 }
 
-int letter_location(char ch)
+// returns the numerical location in the alphabet (e.g., B = 2)
+int locateChar(char ch)
 {
-	if (isalpha(ch))
-	{
-		ch = tolower(ch);
-		return (ch - 'a' + 1);
-	}
-	else
+	if (isalpha(ch)){
+		if (islower(ch))
+			return ch - 'a' + 1;
+		else
+			return ch - 'A' + 1;
+	} else
 		return -1;
+
 }
+
+// #include <stdio.h>
+// #include <ctype.h>
+
+// int letter_location(char ch);
+
+// int main(void)
+// {
+// 	char ch;
+// 	int location;
+
+// 	while ((ch = getchar()) != EOF)
+// 	{
+// 		if ((location = letter_location(ch)) == -1)
+// 			printf("%c is not a letter\n", ch);
+// 		else
+// 			printf("%c is a letter: location = %d\n", ch, location);
+// 	} 
+
+// 	return 0;
+// }
+
+// int letter_location(char ch)
+// {
+// 	if (isalpha(ch))
+// 	{
+// 		ch = tolower(ch);
+// 		return (ch - 'a' + 1);
+// 	}
+// 	else
+// 		return -1;
+// }
