@@ -7,24 +7,50 @@
 // to come up with a different set of function calls, however.
 
 
-// compile with exercise02-b.c
+// compile with exercise03-b.c
 
 #include <stdio.h>
-#include "exercise03.h"
+#include "pe12-3a.h"	// contains declarations of functions
 
 int main(void)
 {
-	int mode = 0;
-	double distance, fuel;
+	int mode;
+	double distance;
+	double fuel;
 
-	set_mode(&mode);
+	printf("Enter 0 for metric mode, 1 for US mode: ");
+	scanf("%d", &mode);
 	while (mode >= 0)
 	{
-		get_info(mode, &distance, &fuel);
-		show_info(mode, distance, fuel);
-		set_mode(&mode);
+		get_info(&mode, &distance, &fuel);
+		show_info(&mode, &distance, &fuel);
+		printf("Enter 0 for metric mode, 1 for US mode");
+		printf(" (-1 to quit): ");
+		scanf("%d", &mode);
 	}
 
 	printf("Done.\n");
 	return 0; 
 }
+
+// compile with exercise02-b.c
+
+// #include <stdio.h>
+// #include "exercise03.h"
+
+// int main(void)
+// {
+// 	int mode = 0;
+// 	double distance, fuel;
+
+// 	set_mode(&mode);
+// 	while (mode >= 0)
+// 	{
+// 		get_info(mode, &distance, &fuel);
+// 		show_info(mode, distance, fuel);
+// 		set_mode(&mode);
+// 	}
+
+// 	printf("Done.\n");
+// 	return 0; 
+// }

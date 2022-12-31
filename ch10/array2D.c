@@ -37,7 +37,7 @@ int main()
     printf("The zippo array (erraneously) defined using pointer notation:\n");
     print_2d_array_VLA(4, 2, zippo);
     /* DIY array declaration and initialization in a proper way:
-        The problem with the approach above is that the memory locations
+        The problem with the zippo approach above is that the memory locations
         of the four rows of zippo were not compactly aligned in memory.
         To do it properly, we need to allocate memory in a compact way.*/
     int * pMemory = (int *)malloc(4 * 2 * sizeof(int)); // malloc takes a compact memory chunk
@@ -46,6 +46,22 @@ int main()
     int (* kippo)[2] = (int (*)[2])pMemory;
     printf("The kippo array (properly) defined using pointer notation:\n");
     print_2d_array_VLA(4, 2, kippo);
+    /* Another legit way of array declaration without using malloc
+        is to use compound literals:
+            int ptr[][2];
+            ptr = (int (*)[2]) {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
+    */
+    int cippo[][2] = {{41, 42}, {43, 44}, {45, 46}, {47, 48}};
+    printf("The cippo array defined using compound literals:\n");
+    print_2d_array_VLA(4, 2, cippo);
+    /* DIY array declaration and initialization using pointers and compound literals
+        We can still use the pointer notation to declare 2d array, and then
+        initialize using compound literals to create a compack bulk memory in stack
+    */
+   int (*pippo)[2]; // declare a pointer to an array of 2-int-sized arrays
+   pippo = (int [4][2]) { {51,52}, {53,54}, {55,56}, {57,58}};
+   printf("The pippo array defined using pointers and compound literals:\n");
+    print_2d_array_VLA(4, 2, pippo);
     return 0;
 }
 

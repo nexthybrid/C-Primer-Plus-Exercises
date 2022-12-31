@@ -15,10 +15,13 @@
 // the mode setting. You can assume the user responds with numeric input.
 
 
-// compile with exercise02-b.c
+// compile with pel2-2a.c
 
 #include <stdio.h>
-#include "exercise02.h"
+#include "pe12-2a.h"	// this will swap the content in "pel2-2a.h" here
+// the functions declared in the header are (by default) external linkage functions.
+// This means these functions are visible across files. And the compiler with find
+// their definition by searching through all files involved.
 
 int main(void)
 {
@@ -28,7 +31,7 @@ int main(void)
 	scanf("%d", &mode);
 	while (mode >= 0)
 	{
-		set_mode(mode);
+		set_mode(mode);	// uses the automatic variable to update the static variable
 		get_info();
 		show_info();
 		printf("Enter 0 for metric mode, 1 for US mode");
@@ -39,3 +42,29 @@ int main(void)
 	printf("Done.\n");
 	return 0; 
 }
+
+
+// compile with exercise02-b.c
+
+// #include <stdio.h>
+// #include "exercise02.h"
+
+// int main(void)
+// {
+// 	int mode;
+
+// 	printf("Enter 0 for metric mode, 1 for US mode: ");
+// 	scanf("%d", &mode);
+// 	while (mode >= 0)
+// 	{
+// 		set_mode(mode);
+// 		get_info();
+// 		show_info();
+// 		printf("Enter 0 for metric mode, 1 for US mode");
+// 		printf(" (-1 to quit): ");
+// 		scanf("%d", &mode);
+// 	}
+
+// 	printf("Done.\n");
+// 	return 0; 
+// }
