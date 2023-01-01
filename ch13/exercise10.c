@@ -9,60 +9,88 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX_CHAR 20
+#define LINE_BUFF_SIZE 256
 
-#define SLEN 81
-
-void get(char * string, int n);
-
-int main(void)
+int main()
 {
+	printf("Enter a filename:\n");
+	char filename[MAX_CHAR];
+	scanf("%s", filename);
 	FILE *fp;
-	char filename[SLEN];
-	long pos;
-	int ch;
-
-	printf("Enter a filename: ");
-	get(filename, SLEN);
-
-	if ((fp = fopen(filename, "r")) == NULL)
-	{
-		fprintf(stderr, "Could not open file %s.\n", filename);
-		exit(EXIT_FAILURE);
+	if ((fp = fopen(filename, "r")) == NULL){
+		fprintf(stderr, "Cannot open file %s.", filename);
+		exit(1);
 	}
-
-	printf("Enter a position: ");
-	while (scanf("%ld", &pos) == 1)
-	{
-		if (pos < 0)
-			break;
-
-		fseek(fp, pos, SEEK_SET);
-		while ((ch = getc(fp)) != EOF && ch != '\n')
-			putchar(ch);
-		putchar('\n');
-
-		printf("Enter a positition: ");
+	int usrPos;
+	char buffer[LINE_BUFF_SIZE];
+	printf("Enter a position (non-negative integer), or exit using a negative integer:\n");
+	while (scanf("%d", &usrPos) == 1 && usrPos >= 0){
+		fpos_t filePos = usrPos;
+		fsetpos(fp, &filePos);
+		fgets(buffer, LINE_BUFF_SIZE, fp);
+		fputs(buffer,stdout);
+		printf("Enter a position (non-negative integer), or exit using a negative integer:\n");
 	}
-
-	fclose(fp);
-	puts("Done.");
 	return 0;
 }
 
-void get(char * string, int n)
-{
-	// wrapper for fgets - read from stdin and replace
-	// first newline with null character
+// #include <stdio.h>
+// #include <stdlib.h>
 
-	fgets(string, n, stdin);
+// #define SLEN 81
 
-	while (*string != '\0')
-	{
-		if (*string == '\n')
-		{
-			*string = '\0';
-			break;
-		}
-		string++;
-	}
-}
+// void get(char * string, int n);
+
+// int main(void)
+// {
+// 	FILE *fp;
+// 	char filename[SLEN];
+// 	long pos;
+// 	int ch;
+
+// 	printf("Enter a filename: ");
+// 	get(filename, SLEN);
+
+// 	if ((fp = fopen(filename, "r")) == NULL)
+// 	{
+// 		fprintf(stderr, "Could not open file %s.\n", filename);
+// 		exit(EXIT_FAILURE);
+// 	}
+
+// 	printf("Enter a position: ");
+// 	while (scanf("%ld", &pos) == 1)
+// 	{
+// 		if (pos < 0)
+// 			break;
+
+// 		fseek(fp, pos, SEEK_SET);
+// 		while ((ch = getc(fp)) != EOF && ch != '\n')
+// 			putchar(ch);
+// 		putchar('\n');
+
+// 		printf("Enter a positition: ");
+// 	}
+
+// 	fclose(fp);
+// 	puts("Done.");
+// 	return 0;
+// }
+
+// void get(char * string, int n)
+// {
+// 	// wrapper for fgets - read from stdin and replace
+// 	// first newline with null character
+
+// 	fgets(string, n, stdin);
+
+// 	while (*string != '\0')
+// 	{
+// 		if (*string == '\n')
+// 		{
+// 			*string = '\0';
+// 			break;
+// 		}
+// 		string++;
+// 	}
+// }

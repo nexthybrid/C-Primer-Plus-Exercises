@@ -6,43 +6,84 @@
 // that, when the program is run a second time, new word numbering resumes
 // where the previous numbering left off.
 
+/* addaword.c -- uses fprintf(), fscanf(), and rewind() */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-
-#define MAX 41
-
-int main(void) 
+#define MAX 40
+int main(void)
 {
 	FILE *fp;
 	char words[MAX];
-	char line[MAX + 6];
-	int word_count = 1;
-
 	if ((fp = fopen("wordy", "a+")) == NULL)
 	{
-		fprintf(stdout,"Can't open \"wordy\" file.\n");
-		exit(EXIT_FAILURE);
+		fprintf(stdout,"Can't open \"words\" file.\n");
+		exit(1);
 	}
-
-	// count lines already written to file
+	// count the words already in file
+	fpos_t pos;
+	fgetpos(fp, &pos);	// remember the current position
 	rewind(fp);
-	while (fgets(line, MAX + 6, fp) != NULL)
-		word_count++;
-	
-	puts("Enter words to add to the file; press the #");
+	int count = 0;
+	char dump[MAX];
+	while (fscanf(fp, "%s", dump) == 1){
+		count++;
+	}
+	fsetpos(fp, &pos);	// initial position of "a+"
+	// add words
+	puts("Enter words to add to the file; press the Enter");
 	puts("key at the beginning of a line to terminate.");
-	while ((fscanf(stdin,"%40s", words) == 1) && (words[0] != '#'))
-		fprintf(fp, "%d %s\n", word_count++, words);
-
+	while (gets(words) != NULL && words[0] != '\0'){
+		fprintf(fp, "%s ", words);
+		count++;
+	}
 	puts("File contents:");
 	rewind(fp); /* go back to beginning of file */
-	while (fgets(line, MAX + 6, fp) != NULL)
-		fputs(line, stdout);
-	puts("Done!");
-	
+	while (fscanf(fp,"%s",words) == 1)
+		puts(words);
 	if (fclose(fp) != 0)
 		fprintf(stderr,"Error closing file\n");
-	
-	return 0; 
+	printf("Total words: %d.\n", count);
+	return 0;
 }
+
+
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+
+// #define MAX 41
+
+// int main(void) 
+// {
+// 	FILE *fp;
+// 	char words[MAX];
+// 	char line[MAX + 6];
+// 	int word_count = 1;
+
+// 	if ((fp = fopen("wordy", "a+")) == NULL)
+// 	{
+// 		fprintf(stdout,"Can't open \"wordy\" file.\n");
+// 		exit(EXIT_FAILURE);
+// 	}
+
+// 	// count lines already written to file
+// 	rewind(fp);
+// 	while (fgets(line, MAX + 6, fp) != NULL)
+// 		word_count++;
+	
+// 	puts("Enter words to add to the file; press the #");
+// 	puts("key at the beginning of a line to terminate.");
+// 	while ((fscanf(stdin,"%40s", words) == 1) && (words[0] != '#'))
+// 		fprintf(fp, "%d %s\n", word_count++, words);
+
+// 	puts("File contents:");
+// 	rewind(fp); /* go back to beginning of file */
+// 	while (fgets(line, MAX + 6, fp) != NULL)
+// 		fputs(line, stdout);
+// 	puts("Done!");
+	
+// 	if (fclose(fp) != 0)
+// 		fprintf(stderr,"Error closing file\n");
+	
+// 	return 0; 
+// }

@@ -10,60 +10,103 @@
 // files can be opened. If a file can’t be opened, have the program report that
 // fact and go on to the next file.
 
-
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[])
+void countOccurance(char ch, FILE * fp);
+
+int main(int argc, char * argv[])
 {
-	char character;
-	int ch;
-
-	if (argc < 2)
-	{
-		printf("Usage: %s <char> [file1] [file2] ...\n", argv[0]);
-		exit(EXIT_FAILURE);
+	if (argc < 2){
+		fprintf(stderr, "Usage: ./a.exe <char> (optional)<filename> ...\n");
+		exit(1);
+	} else if (argc == 2){
+		printf("In standard input (stdin), ");
+		countOccurance(*(argv[1]), stdin);
 	}
-
-	character = *(argv[1]);
-
-	if (argc == 2)
-	{
-		int count = 0;
-
-		// read from stdin
-		while ((ch == getchar()) != EOF)
-			if (ch == character)
-				count++;
-
-		printf("Character count for %c in ...\n", character);
-		printf("Standard in: %d\n", count);
-	}
-	else
-	{
-		FILE * fp;
-		int counts[argc - 2];
-		for (int i = 2; i < argc; i++)
-		{
-			counts[i - 2] = 0;
-			if ((fp = fopen(argv[i], "r")) == NULL)
-			{
-				fprintf(stderr, "Can't open file %s\n", argv[i]);
-				continue;
+		
+	else {
+		for (int i = 2; i < argc; i++){
+			FILE * inStream;
+			if ((inStream = fopen(argv[i], "r")) == NULL){
+				fprintf(stderr, "Cannot open file %s.\n", argv[i]);
+				fclose(inStream);
+				exit(2);
 			}
-
-			while ((ch = getc(fp)) != EOF)
-				if (ch == character)
-					counts[i-2]++;
-
-			fclose(fp);
+			printf("In %s, ", argv[i]);
+			countOccurance(*(argv[1]), inStream);
+			fclose(inStream);
 		}
-
-		printf("Character count for %c in ...\n", character);
-		for (int i = 2; i < argc; i++)
-			printf("%s: \t\t%d\n", argv[i], counts[i-2]);
-
 	}
-
 	return 0;
 }
+
+void countOccurance(char ch, FILE * fp)
+{
+	int count = 0;
+	char c;
+	while ( (c = fgetc(fp)) != EOF){
+		if (c == ch){
+			count++;
+		}
+	}
+	fprintf(stdout, "the character %c has appeared %d times.\n", ch, count);
+}
+
+
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// int main(int argc, char *argv[])
+// {
+// 	char character;
+// 	int ch;
+
+// 	if (argc < 2)
+// 	{
+// 		printf("Usage: %s <char> [file1] [file2] ...\n", argv[0]);
+// 		exit(EXIT_FAILURE);
+// 	}
+
+// 	character = *(argv[1]);
+
+// 	if (argc == 2)
+// 	{
+// 		int count = 0;
+
+// 		// read from stdin
+// 		while ((ch == getchar()) != EOF)
+// 			if (ch == character)
+// 				count++;
+
+// 		printf("Character count for %c in ...\n", character);
+// 		printf("Standard in: %d\n", count);
+// 	}
+// 	else
+// 	{
+// 		FILE * fp;
+// 		int counts[argc - 2];
+// 		for (int i = 2; i < argc; i++)
+// 		{
+// 			counts[i - 2] = 0;
+// 			if ((fp = fopen(argv[i], "r")) == NULL)
+// 			{
+// 				fprintf(stderr, "Can't open file %s\n", argv[i]);
+// 				continue;
+// 			}
+
+// 			while ((ch = getc(fp)) != EOF)
+// 				if (ch == character)
+// 					counts[i-2]++;
+
+// 			fclose(fp);
+// 		}
+
+// 		printf("Character count for %c in ...\n", character);
+// 		for (int i = 2; i < argc; i++)
+// 			printf("%s: \t\t%d\n", argv[i], counts[i-2]);
+
+// 	}
+
+// 	return 0;
+// }

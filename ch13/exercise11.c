@@ -11,33 +11,59 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> 	// strstr
+#define LINE_BUFF_SIZE 256
 
-#define LINEMAX 255
-
-int main(int argc, char *argv[])
+int main(int argc, char * argv[])
 {
-	FILE *fp;
-	char line[LINEMAX];
-
-	if (argc != 3)
-	{
-		fprintf(stderr, "Usage: %s <string> <filename>\n", argv[0]);
-		exit(EXIT_FAILURE);
+	if (argc != 3){
+		fprintf(stderr, "Usage: ./a.exe <string> <filename>\n");
+		exit(1);
 	}
-
-	if ((fp = fopen(argv[2], "r")) == NULL)
-	{
-		fprintf(stderr, "Could not open file %s.\n", argv[2]);
-		exit(EXIT_FAILURE);
+	FILE * fp;
+	if ((fp = fopen(argv[2], "r")) == NULL){
+		fprintf(stderr, "Cannot open file %s.\n", argv[2]);
+		exit(2);
 	}
-
-	while (fgets(line, LINEMAX, fp) != NULL)
-	{
-		if (strstr(line, argv[1]) != NULL)
-			fputs(line, stdout);
+	char buffer[LINE_BUFF_SIZE];
+	while (fgets(buffer, LINE_BUFF_SIZE, fp) != NULL){
+		// check if string argv[1] is in buffer
+		if (strstr(buffer, argv[1]) != NULL)
+			fputs(buffer, stdout);
 	}
-
 	fclose(fp);
 	return 0;
 }
+
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <string.h>
+
+// #define LINEMAX 255
+
+// int main(int argc, char *argv[])
+// {
+// 	FILE *fp;
+// 	char line[LINEMAX];
+
+// 	if (argc != 3)
+// 	{
+// 		fprintf(stderr, "Usage: %s <string> <filename>\n", argv[0]);
+// 		exit(EXIT_FAILURE);
+// 	}
+
+// 	if ((fp = fopen(argv[2], "r")) == NULL)
+// 	{
+// 		fprintf(stderr, "Could not open file %s.\n", argv[2]);
+// 		exit(EXIT_FAILURE);
+// 	}
+
+// 	while (fgets(line, LINEMAX, fp) != NULL)
+// 	{
+// 		if (strstr(line, argv[1]) != NULL)
+// 			fputs(line, stdout);
+// 	}
+
+// 	fclose(fp);
+// 	return 0;
+// }

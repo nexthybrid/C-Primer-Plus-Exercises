@@ -10,61 +10,104 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#define NAME_LEN_MAX 20
+#define BUFF_SIZE 1024
 
-#define SLEN 81
+void char_arr_to_upper(char * arr, int n);
 
-void get(char * string, int n);
-
-int main(void)
+int main()
 {
-	int ch;
-	FILE * fsource;
-	FILE * fdest;
-	char source[SLEN];
-	char dest[SLEN];
-
-	printf("Enter a source file: ");
-	get(source, SLEN);
-	printf("Enter a destination file: ");
-	get(dest, SLEN);
-
-	if ((fsource = fopen(source, "r")) == NULL)
-	{
-		fprintf(stderr, "Could not open file %s for read.\n", source);
-		exit(EXIT_FAILURE);
+	printf("Enter the source file name:\n");
+	char srcFile[NAME_LEN_MAX];
+	scanf("%s", srcFile);
+	printf("Enter the output file name:\n");
+	char tgtFile[NAME_LEN_MAX];
+	scanf("%s", tgtFile);
+	FILE *fpSrc, *fpTgt;
+	if ((fpSrc = fopen(srcFile, "r")) == NULL){
+		fprintf(stderr, "Cannot open file %s.\n", srcFile);
+		exit(1);
 	}
-	if ((fdest = fopen(dest, "w")) == NULL)
-	{
-		fprintf(stderr, "Could not open file %s for write.\n", dest);
-		exit(EXIT_FAILURE);
+	if ((fpTgt = fopen(tgtFile, "w")) == NULL){
+		fprintf(stderr, "Cannot open file %s.\n", tgtFile);
+		exit(2);
 	}
-	while ((ch = getc(fsource)) != EOF)
-	{
-		if (islower(ch))
-			ch = toupper(ch);
-		putc(ch, fdest);
+	char buffer[BUFF_SIZE];
+	int n;
+	while ((n = fread(buffer, sizeof(char), BUFF_SIZE, fpSrc)) != 0){
+		char_arr_to_upper(buffer, n);	// convert to upper case
+		fwrite(buffer, sizeof(char), n, fpTgt);
 	}
-
-	fclose(fsource);
-	fclose(fdest);
-
 	return 0;
 }
 
-void get(char * string, int n)
+// turn lower case chars to upper case chars in arr, with length n
+void char_arr_to_upper(char * arr, int n)
 {
-	// wrapper for fgets - read from stdin and replace
-	// first newline with null character
-
-	fgets(string, n, stdin);
-
-	while (*string != '\0')
-	{
-		if (*string == '\n')
-		{
-			*string = '\0';
-			break;
-		}
-		string++;
+	for (int i = 0; i < n; i++){
+		arr[i] = toupper(arr[i]);
 	}
 }
+
+
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <ctype.h>
+
+// #define SLEN 81
+
+// void get(char * string, int n);
+
+// int main(void)
+// {
+// 	int ch;
+// 	FILE * fsource;
+// 	FILE * fdest;
+// 	char source[SLEN];
+// 	char dest[SLEN];
+
+// 	printf("Enter a source file: ");
+// 	get(source, SLEN);
+// 	printf("Enter a destination file: ");
+// 	get(dest, SLEN);
+
+// 	if ((fsource = fopen(source, "r")) == NULL)
+// 	{
+// 		fprintf(stderr, "Could not open file %s for read.\n", source);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	if ((fdest = fopen(dest, "w")) == NULL)
+// 	{
+// 		fprintf(stderr, "Could not open file %s for write.\n", dest);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	while ((ch = getc(fsource)) != EOF)
+// 	{
+// 		if (islower(ch))
+// 			ch = toupper(ch);
+// 		putc(ch, fdest);
+// 	}
+
+// 	fclose(fsource);
+// 	fclose(fdest);
+
+// 	return 0;
+// }
+
+// void get(char * string, int n)
+// {
+// 	// wrapper for fgets - read from stdin and replace
+// 	// first newline with null character
+
+// 	fgets(string, n, stdin);
+
+// 	while (*string != '\0')
+// 	{
+// 		if (*string == '\n')
+// 		{
+// 			*string = '\0';
+// 			break;
+// 		}
+// 		string++;
+// 	}
+// }
